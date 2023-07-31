@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../hooks/redux";
 import { Note, editNote } from "../../redux/note/sliceNote";
 import { Button, FormGroup, FormWrapper, Input, Label, Select, TextArea } from "./FormEdit.styled"
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 
 interface Edit {
   currentNoteEdit: Note | null,
@@ -48,10 +48,10 @@ const FormEdit: FC<Edit> = ({currentNoteEdit, handleToggle}) => {
         break;
   
         case 'dates':
-case 'dates':
-  setFormData(prevData => ({
-    ...prevData!,
-    dates: [...prevData?.dates, value], 
+  setFormData(pS => ({
+    ...pS!,
+    // dates: [...pS?.dates, value]
+    dates: [value]
   }));
   break;
   
@@ -92,7 +92,7 @@ handleToggle()
       </FormGroup>
       <FormGroup>
         <Label htmlFor="dates">Date:</Label>
-        <Input type="date" id="dates" value={formData.dates} onChange={handleChange}/>
+        <Input type="date" id="dates" value={formData.dates.length > 0 ? formData.dates[formData.dates.length - 1] : ''} onChange={handleChange}/>
       </FormGroup>
       <Button type="submit">Submit</Button>
     </FormWrapper>
