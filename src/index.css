@@ -1,0 +1,42 @@
+*{
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #111111;
+  }
+  
+  html {
+    height: 100%;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    
+  }
+  a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0;
+  }
+  p{
+    margin: 0;
+    padding: 0;
+  }
+  
+  img{
+    display: block;
+    width: 100%;
+  }
