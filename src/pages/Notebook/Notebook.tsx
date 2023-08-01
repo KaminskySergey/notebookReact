@@ -1,17 +1,18 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import TableAll from "../../components/TableAll/TableAll";
 import TableInfoLength from "../../components/TableInfoLength/TableInfoLength";
+import TableArchived from "../../components/TableArchived/TableArchived";
 
 
 const Notebook: FC = () => {
-    // const currentNotes = useAppSelector(state => state.notes.notes)
-    
-    // const nonArchivedNotes: Note[] = currentNotes.filter(note => !note.archived);
-    
-    
+    const [isOpenTable, setIsOpenTable] = useState(false)
+const handleToggleTableArchived = () => {
+    setIsOpenTable(pS => !pS)
+}
     return (
         <>
-        <TableAll />
+        <TableAll isOpenTable={isOpenTable} handleToggleTableArchived={handleToggleTableArchived}/>
+        {isOpenTable && <TableArchived />}
         <TableInfoLength />
         </>
     )

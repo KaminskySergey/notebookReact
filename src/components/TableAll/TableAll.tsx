@@ -8,18 +8,22 @@ import TableList from "../TableList/TableList";
 
 import {FC} from "react"
 
+interface Archived {
+    handleToggleTableArchived: () => void
+    isOpenTable: boolean,
+}
 
-const TableAll: FC = () => {
+const TableAll: FC<Archived> = ({isOpenTable, handleToggleTableArchived}) => {
     const currentNotes = useAppSelector(state => state.notes.notes)
 
-    const nonArchivedNotes: Note[] = currentNotes.filter(note => !note.archived);
+    const nonArchivedNotes: Note[] = currentNotes.filter((note: { archived: any; }) => !note.archived);
 
     
 
     return (
         <>
         <TableList>
-            <TableItemAll notes={nonArchivedNotes}/>
+            <TableItemAll isOpenTable={isOpenTable} handleToggleTableArchived={handleToggleTableArchived} notes={nonArchivedNotes}/>
         </TableList>
         
         </>

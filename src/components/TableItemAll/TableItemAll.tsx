@@ -4,7 +4,7 @@ import { PiArchiveDuotone } from 'react-icons/pi';
 import { GrTasks } from 'react-icons/gr';
 import { GiTeamIdea } from 'react-icons/gi';
 import { BsChatQuoteFill } from 'react-icons/bs';
-import { ButtonIcon, StyledTable, TableCell, TableHeader, TableListBtn, TableRow, TableWrapper, BtnCreate } from './TableItemAll.styled';
+import { ButtonIcon, StyledTable, TableCell, TableHeader, TableListBtn, TableRow, TableWrapper, BtnCreate, BtnArchived, BtnContainer } from './TableItemAll.styled';
 import Modal from '../Modal/Modal';
 import FormEdit from '../FormEdit/FormEdit';
 import { useAppDispatch } from '../../hooks/redux';
@@ -12,13 +12,14 @@ import { Note, archiveNote, removeNote } from '../../redux/note/sliceNote';
 import { columns } from '../../helpers/helpers';
 import FormCreate from '../FormCreate/FormCreate';
 
-interface CategoryIcons {
+export interface CategoryIcons {
   [category: string]: JSX.Element;
 }
 
 interface TableProps {
-  // columns: TableColumn[];
   notes: any[]; 
+  handleToggleTableArchived: () => void;
+  isOpenTable: boolean;
 }
 
 
@@ -45,11 +46,11 @@ function getLastTwoDates(dates: string | string[]): JSX.Element {
     );
   }
 
-  return <></>; // Вернуть пустой фрагмент, если нет дат или меньше двух дат
+  return <></>;
 }
 
 
-const TableItemAll: FC<TableProps> = ({ notes }) => {
+const TableItemAll: FC<TableProps> = ({ isOpenTable, handleToggleTableArchived, notes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentNoteEdit, setCurrentNoteEdit] = useState<Note | null>(null)
   const [isCreating, setIsCreating] = useState(false);
@@ -97,8 +98,8 @@ const TableItemAll: FC<TableProps> = ({ notes }) => {
             </TableRow>
           </thead>
           <tbody>
-            {notes.map((row, index) => (
-              <TableRow key={index}>
+            {notes.map((row) => (
+              <TableRow key={row.id}>
                 {columns.map((column) => (
                   <TableCell key={column.key}>
                     {column.key === 'name' ? (
@@ -132,8 +133,10 @@ const TableItemAll: FC<TableProps> = ({ notes }) => {
           </tbody>
         </StyledTable>
       </TableWrapper>
+      <BtnContainer>
       <BtnCreate type="button" onClick={handleCreateNote}>Create Note</BtnCreate>
-
+      <BtnArchived type='button' onClick={handleToggleTableArchived}>{isOpenTable === false ? 'Archived Open' : 'Archived Close' }</BtnArchived>
+      </BtnContainer>
       
         {isOpen && (<Modal onClose={handleToggle}>
           {isCreating ? (

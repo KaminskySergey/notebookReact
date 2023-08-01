@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
 
 interface ButtonProps {
-  background: "edit" | "delete" | "archive"; // Возможные значения для типа кнопки
-  // onClick: (event: MouseEvent<HTMLButtonElement>) => void; // Обработчик клика по кнопке
+  background: "edit" | "delete" | "archive"; 
 }
 
 export const TableWrapper = styled.div`

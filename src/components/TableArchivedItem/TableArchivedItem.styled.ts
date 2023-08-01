@@ -1,10 +1,5 @@
 import { styled } from "styled-components";
 
-interface ButtonProps {
-  background: "edit" | "delete" | "archive"; // Возможные значения для типа кнопки
-  // onClick: (event: MouseEvent<HTMLButtonElement>) => void; // Обработчик клика по кнопке
-}
-
 export const TableWrapper = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -46,7 +41,7 @@ export const TableListBtn = styled.ul`
   
 `;
 
-export const ButtonIcon = styled.button<ButtonProps>`
+export const ButtonIcon = styled.button`
 border: none;
 background-color: transparent;
 padding: 5px;
@@ -60,18 +55,8 @@ height: 30px;
   height: 15px;
 }
 &:hover, &:focus svg {
-  background-color: ${p => {
-    if (p.background === "edit") return "yellow"; 
-    if (p.background === "delete") return "red"; 
-    if (p.background === "archive") return "blue"; 
-    return "transparent"; 
-  }};
+  background-color: green;
 }
-`
-export const BtnContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
 `
 
 export const BtnCreate = styled.button`
@@ -95,25 +80,3 @@ export const BtnCreate = styled.button`
     background-color: #45a049;
   }
 `;
-
-export const BtnArchived = styled.button`
-display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1515d8;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  svg {
-    margin-right: 8px;
-  }
-
-  &:hover {
-    background-color: #11115d;
-  }
-`

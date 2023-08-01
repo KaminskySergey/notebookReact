@@ -22,7 +22,6 @@ export const initialState: NoteSliseList = {
 
 export const counterSlice = createSlice({
   name: "note",
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     addNote: (state, action: PayloadAction<Note>) => {
@@ -50,15 +49,12 @@ export const counterSlice = createSlice({
       const noteToUpdate = state.notes.find((note) => note.id === updatedNote.id);
       
       if (noteToUpdate) {
-        // Обновляем все поля заметки
         console.log(noteToUpdate, 'noteToUpdatenoteToUpdatenoteToUpdate')
         noteToUpdate.name = updatedNote.name;
         noteToUpdate.time = updatedNote.time;
         noteToUpdate.category = updatedNote.category;
         noteToUpdate.content = updatedNote.content;
-        // ... Обновите остальные поля здесь
-    
-        // Добавляем новую дату в массив dates
+        
         noteToUpdate.dates = [...noteToUpdate.dates, updatedNote.arrayOfDate];
       }
     },
@@ -69,9 +65,16 @@ export const counterSlice = createSlice({
       if (noteToArchive) {
         noteToArchive.archived = true;
       }
-    }
+    },
+    unarchiveNote: (state, action: PayloadAction<string>) => {
+      const idToUnarchive = action.payload;
+      const noteToUnarchive = state.notes.find((note) => note.id === idToUnarchive);
+      if (noteToUnarchive) {
+        noteToUnarchive.archived = false;
+      }
+    },
   },
 });
 
-export const {addNote, removeNote, editNote, archiveNote} = counterSlice.actions
+export const {addNote, removeNote, editNote, archiveNote, unarchiveNote} = counterSlice.actions
 export const noteReducer = counterSlice.reducer;
