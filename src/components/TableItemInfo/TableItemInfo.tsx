@@ -39,16 +39,16 @@ const TableItemInfo: FC<TableItemInfoProps> = ({ notes}) => {
             <TableCell>{countCategoryActiveFalse('Task')}</TableCell>
             <TableCell>{countCategoryArchivedTrue('Task')}</TableCell>
           </TableRow>
-          <tr>
+          <TableRow>
             <TableCell><div style={{ display: 'flex' }}><GiTeamIdea /><p>Idea</p></div></TableCell>
             <TableCell>{countCategoryActiveFalse('Idea')}</TableCell>
             <TableCell>{countCategoryArchivedTrue('Idea')}</TableCell>
-          </tr>
-          <tr>
+          </TableRow>
+          <TableRow>
             <TableCell><div style={{ display: 'flex' }}><BsChatQuoteFill /><p>Quote</p></div></TableCell>
             <TableCell>{countCategoryActiveFalse('Quote')}</TableCell>
             <TableCell>{countCategoryArchivedTrue('Quote')}</TableCell>
-          </tr>
+          </TableRow>
         </tbody>
       </StyledTable>
           </TableWrapper>

@@ -68,3 +68,25 @@ height: 30px;
   }};
 }
 `
+
+export const BtnCreate = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  svg {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;

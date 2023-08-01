@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { notesData } from "../../api/notes";
 
 export interface Note {
-  id: number;
+  id: string;
   name: string;
   time: Date | string;
   category: string;
@@ -25,22 +25,24 @@ export const counterSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    addNote: (state, action: PayloadAction<string>) => {
+    addNote: (state, action: PayloadAction<Note>) => {
+      console.log(action.payload, '3333333333333333333')
+      console.log(action.payload.time, 'tieeeeeeeeeeeeeeeeeeeeeee')
       state.notes = [
         ...state.notes,
         {
-          id: state.notes.length,
-          name: action.payload,
+          id: action.payload.id,
+          name: action.payload.name,
           archived: false,
-          time: new Date(),
-          category: action.payload,
-          content: action.payload,
-          dates: action.payload,
-          arrayOfDate: action.payload
+          time: action.payload.time,
+          category: action.payload.category,
+          content: action.payload.content,
+          dates: [...action.payload.dates, action.payload.arrayOfDate],
+          arrayOfDate: action.payload.arrayOfDate
         },
       ];
     },
-    removeNote: (state, action: PayloadAction<number>) => {
+    removeNote: (state, action: PayloadAction<string>) => {
         state.notes = state.notes.filter(el => el.id !== action.payload)
     },
     editNote: (state, action: PayloadAction<Note>) => {
@@ -60,8 +62,9 @@ export const counterSlice = createSlice({
         noteToUpdate.dates = [...noteToUpdate.dates, updatedNote.arrayOfDate];
       }
     },
-    archiveNote: (state, action: PayloadAction<number>) => {
+    archiveNote: (state, action: PayloadAction<string>) => {
       const idToArchive = action.payload;
+      console.log(idToArchive, 'idToArchiveidToArchiveidToArchiveidToArchive')
       const noteToArchive = state.notes.find((note) => note.id === idToArchive);
       if (noteToArchive) {
         noteToArchive.archived = true;

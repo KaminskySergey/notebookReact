@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { useAppDispatch } from "../../hooks/redux";
 import { Note, editNote } from "../../redux/note/sliceNote";
 import { Button, FormGroup, FormWrapper, Input, Label, Select, TextArea } from "./FormEdit.styled"
@@ -51,15 +52,33 @@ const FormEdit: FC<Edit> = ({currentNoteEdit, handleToggle}) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
+    
+    const selectedDate = new Date(Date.parse(currTime));
+  
+    
+    if (isNaN(selectedDate.getTime())) {
+      alert('Please enter a valid date.');
+      return;
+    }
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      alert('Please select a future date.');
+      return;
+    }
+  
+    
+    const formattedDate = format(selectedDate, 'dd/MM/yyyy');
+  
     if (formData !== null) {
       const updatedNote: Note = {
-        ...formData, arrayOfDate: currTime
+        ...formData,
+        arrayOfDate: formattedDate,
       };
       dispatch(editNote(updatedNote));
       handleToggle();
     }
-  }
+  };
 
   if (!formData) return null;
   

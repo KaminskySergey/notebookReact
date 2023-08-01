@@ -4,12 +4,13 @@ import { PiArchiveDuotone } from 'react-icons/pi';
 import { GrTasks } from 'react-icons/gr';
 import { GiTeamIdea } from 'react-icons/gi';
 import { BsChatQuoteFill } from 'react-icons/bs';
-import { ButtonIcon, StyledTable, TableCell, TableHeader, TableListBtn, TableRow, TableWrapper } from './TableItemAll.styled';
+import { ButtonIcon, StyledTable, TableCell, TableHeader, TableListBtn, TableRow, TableWrapper, BtnCreate } from './TableItemAll.styled';
 import Modal from '../Modal/Modal';
 import FormEdit from '../FormEdit/FormEdit';
 import { useAppDispatch } from '../../hooks/redux';
 import { Note, archiveNote, removeNote } from '../../redux/note/sliceNote';
 import { columns } from '../../helpers/helpers';
+import FormCreate from '../FormCreate/FormCreate';
 
 interface CategoryIcons {
   [category: string]: JSX.Element;
@@ -27,23 +28,35 @@ const categoryIcons: CategoryIcons = {
   Quote: <BsChatQuoteFill />,
 };
 
-function getLastTwoDates(dates: string | string[]): string[] {
-  console.log(dates, '1')
-  if (typeof dates === 'string') {
-    return [dates];
+function getLastTwoDates(dates: string | string[]): JSX.Element {
+  
+  const twoDates = typeof dates === 'string' ? [dates] : dates.filter((date) => date !== '').slice(-2);
+
+  if (twoDates.length === 1) {
+    return <span>{twoDates[0]}</span>;
   }
-  const nonEmptyDates = dates.filter((date) => date !== '');
-  const lastTwoDates = nonEmptyDates.slice(-2);
-  return lastTwoDates;
+
+  if (twoDates.length === 2) {
+    return (
+      <>
+        <span>{twoDates[0]},</span>
+        <span style={{marginLeft: '8px'}}>{twoDates[1]}</span>
+      </>
+    );
+  }
+
+  return <></>; // Вернуть пустой фрагмент, если нет дат или меньше двух дат
 }
 
 
 const TableItemAll: FC<TableProps> = ({ notes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentNoteEdit, setCurrentNoteEdit] = useState<Note | null>(null)
+  const [isCreating, setIsCreating] = useState(false);
   const dispatch = useAppDispatch()
   
   const handleCurrentNoteEdit = (note: Note | null) => {
+    setIsCreating(false);
     setCurrentNoteEdit(note)
     handleToggle()
   }
@@ -51,6 +64,13 @@ const TableItemAll: FC<TableProps> = ({ notes }) => {
   const handleToggle = () => {
     setIsOpen((prevState) => !prevState);
   };
+
+  const handleCreateNote = () => {
+    setIsCreating(true);
+    setCurrentNoteEdit(null);
+    handleToggle();
+  };
+
 
   return (
     <>
@@ -104,15 +124,7 @@ const TableItemAll: FC<TableProps> = ({ notes }) => {
                           </ButtonIcon>
                         </li>
                       </TableListBtn>
-                    ) : column.key === 'dates' ? (
-                      <span>
-                        {getLastTwoDates(row[column.key]).map((date, idx) => (
-                          <span key={idx}>{date}</span>
-                        ))}
-                      </span>
-                    ) : (
-                      row[column.key]
-                    )}
+                    ) : (column.key === 'dates' ? getLastTwoDates(row[column.key]) : row[column.key])}
                   </TableCell>
                 ))}
               </TableRow>
@@ -120,12 +132,17 @@ const TableItemAll: FC<TableProps> = ({ notes }) => {
           </tbody>
         </StyledTable>
       </TableWrapper>
+      <BtnCreate type="button" onClick={handleCreateNote}>Create Note</BtnCreate>
 
-      {isOpen && (
-        <Modal onClose={handleToggle}>
-          <FormEdit currentNoteEdit={currentNoteEdit} handleToggle={handleToggle}/>
-        </Modal>
-      )}
+      
+        {isOpen && (<Modal onClose={handleToggle}>
+          {isCreating ? (
+            <FormCreate handleToggle={handleToggle} />
+          ) : (
+            <FormEdit currentNoteEdit={currentNoteEdit} handleToggle={handleToggle} />
+          )}
+        </Modal>)}
+       
     </>
   );
 };

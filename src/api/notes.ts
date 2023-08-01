@@ -2,7 +2,7 @@ import { Note } from "../redux/note/sliceNote";
 
 let notesData: Note[] = [
     {
-      id: 1,
+      id: '1',
       name: 'Shop1',
       time: '2023-07-27T12:00:00',
       content: "У меня будет визит к стоматологу 3/5/2021, перенёс его с 5/5/2021",
@@ -12,7 +12,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Shop3',
       time: '2023-07-28T14:30:00',
       content: "Написать отчет о выполненной работе",
@@ -22,7 +22,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 3,
+      id: '3',
       name: 'Shop4',
       time: '2023-07-29T09:15:00',
       content: "Идея: создать приложение для заметок",
@@ -32,7 +32,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 4,
+      id: '4',
       name: 'Shop4',
       time: '2023-07-30T18:00:00',
       content: "Приготовить ужин для гостей",
@@ -42,7 +42,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 5,
+      id: '5',
       name: 'Shop5',
       time: '2023-07-31T10:00:00',
       content: "Купить продукты: молоко, яйца, овощи",
@@ -52,7 +52,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 6,
+      id: '6',
       name: 'Shop6',
       time: '2023-08-01T16:45:00',
       content: "Захватывающая идея для нового проекта",
@@ -62,7 +62,7 @@ let notesData: Note[] = [
       arrayOfDate: '',
     },
     {
-      id: 7,
+      id: '7',
       name: 'Shop7',
       time: '2023-08-02T11:30:00',
       content: "Случайная мысль: посмотреть новый фильм",
