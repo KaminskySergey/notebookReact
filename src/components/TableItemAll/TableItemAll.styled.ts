@@ -32,7 +32,10 @@ export const TableRow = styled.tr`
 
 export const TableCell = styled.td`
   padding: 8px;
-  
+  & svg {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const TableListBtn = styled.ul`

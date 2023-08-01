@@ -8,34 +8,28 @@ import { ButtonIcon, StyledTable, TableCell, TableHeader, TableListBtn, TableRow
 import Modal from '../Modal/Modal';
 import FormEdit from '../FormEdit/FormEdit';
 import { useAppDispatch } from '../../hooks/redux';
-import { Note, removeNote } from '../../redux/note/sliceNote';
-
-interface TableColumn {
-  key: string;
-  title: string;
-}
+import { Note, archiveNote, removeNote } from '../../redux/note/sliceNote';
+import { columns } from '../../helpers/helpers';
 
 interface CategoryIcons {
   [category: string]: JSX.Element;
 }
 
 interface TableProps {
-  columns: TableColumn[];
-  notes: any[]; // Мы предполагаем, что данные представлены массивом объектов
+  // columns: TableColumn[];
+  notes: any[]; 
 }
 
-// Определите соответствие категорий и иконок
+
 const categoryIcons: CategoryIcons = {
   Idea: <GiTeamIdea />,
   Task: <GrTasks />,
   Quote: <BsChatQuoteFill />,
-  // Добавьте другие категории и соответствующие им иконки здесь
 };
 
 function getLastTwoDates(dates: string | string[]): string[] {
   console.log(dates, '1')
   if (typeof dates === 'string') {
-    // If dates is a single date string, return it as a one-element array
     return [dates];
   }
   const nonEmptyDates = dates.filter((date) => date !== '');
@@ -44,7 +38,7 @@ function getLastTwoDates(dates: string | string[]): string[] {
 }
 
 
-const TableItemAll: FC<TableProps> = ({ columns, notes }) => {
+const TableItemAll: FC<TableProps> = ({ notes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentNoteEdit, setCurrentNoteEdit] = useState<Note | null>(null)
   const dispatch = useAppDispatch()
@@ -105,7 +99,7 @@ const TableItemAll: FC<TableProps> = ({ columns, notes }) => {
                           </ButtonIcon>
                         </li>
                         <li>
-                          <ButtonIcon background={'archive'} type="button">
+                          <ButtonIcon background={'archive'} type="button" onClick={() => dispatch(archiveNote(row.id))}>
                             <PiArchiveDuotone />
                           </ButtonIcon>
                         </li>

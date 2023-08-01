@@ -9,6 +9,7 @@ let notesData: Note[] = [
       category: 'Task',
       dates: ['3/5/2021', '5/5/2021', '3/3/3333', '2/2/2222'],
       archived: false,
+      arrayOfDate: '',
     },
     {
       id: 2,
@@ -18,6 +19,7 @@ let notesData: Note[] = [
       category: 'Idea',
       dates: [],
       archived: false,
+      arrayOfDate: '',
     },
     {
       id: 3,
@@ -27,6 +29,7 @@ let notesData: Note[] = [
       category: 'Idea',
       dates: [],
       archived: false,
+      arrayOfDate: '',
     },
     {
       id: 4,
@@ -36,6 +39,7 @@ let notesData: Note[] = [
       category: 'Task',
       dates: [],
       archived: false,
+      arrayOfDate: '',
     },
     {
       id: 5,
@@ -45,6 +49,7 @@ let notesData: Note[] = [
       category: 'Quote',
       dates: [],
       archived: false,
+      arrayOfDate: '',
     },
     {
       id: 6,
@@ -54,6 +59,7 @@ let notesData: Note[] = [
       category: 'Idea',
       dates: [],
       archived: true,
+      arrayOfDate: '',
     },
     {
       id: 7,
@@ -63,6 +69,7 @@ let notesData: Note[] = [
       category: 'Quote',
       dates: [],
       archived: true,
+      arrayOfDate: '',
     },
   ];
   

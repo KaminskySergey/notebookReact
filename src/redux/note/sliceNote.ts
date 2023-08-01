@@ -9,6 +9,7 @@ export interface Note {
   content: string;
   dates: string[] | string;
   archived: boolean;
+  arrayOfDate: string,
 }
 
 interface NoteSliseList {
@@ -35,6 +36,7 @@ export const counterSlice = createSlice({
           category: action.payload,
           content: action.payload,
           dates: action.payload,
+          arrayOfDate: action.payload
         },
       ];
     },
@@ -42,13 +44,31 @@ export const counterSlice = createSlice({
         state.notes = state.notes.filter(el => el.id !== action.payload)
     },
     editNote: (state, action: PayloadAction<Note>) => {
-      const index = state.notes.findIndex((note) => note.id === action.payload.id);
-      if (index !== -1) {
-        state.notes[index] = action.payload;
+      const updatedNote = action.payload;
+      const noteToUpdate = state.notes.find((note) => note.id === updatedNote.id);
+      
+      if (noteToUpdate) {
+        // Обновляем все поля заметки
+        console.log(noteToUpdate, 'noteToUpdatenoteToUpdatenoteToUpdate')
+        noteToUpdate.name = updatedNote.name;
+        noteToUpdate.time = updatedNote.time;
+        noteToUpdate.category = updatedNote.category;
+        noteToUpdate.content = updatedNote.content;
+        // ... Обновите остальные поля здесь
+    
+        // Добавляем новую дату в массив dates
+        noteToUpdate.dates = [...noteToUpdate.dates, updatedNote.arrayOfDate];
       }
     },
+    archiveNote: (state, action: PayloadAction<number>) => {
+      const idToArchive = action.payload;
+      const noteToArchive = state.notes.find((note) => note.id === idToArchive);
+      if (noteToArchive) {
+        noteToArchive.archived = true;
+      }
+    }
   },
 });
 
-export const {addNote, removeNote, editNote} = counterSlice.actions
+export const {addNote, removeNote, editNote, archiveNote} = counterSlice.actions
 export const noteReducer = counterSlice.reducer;

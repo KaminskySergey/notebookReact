@@ -12,64 +12,56 @@ interface Edit {
 
 const FormEdit: FC<Edit> = ({currentNoteEdit, handleToggle}) => {
   const [formData, setFormData] = useState<Note | null>(currentNoteEdit);
-  const dispatch = useAppDispatch()
-  // const [name, setName] = useState('')
-  // const [category, setCategory] = useState('')
-  // const [content, setContent] = useState('')
-  // const [dates, setDates] = useState('')
-  // useEffect(() => {
-  //   setFormData(currentNoteEdit);
-  // }, [currentNoteEdit]);
-
+  const [currTime, setCurrTime] = useState<any>('')
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-   
+
     switch (id) {
       case 'name':
-        setFormData(pS => ({
-          ...pS!,
+        setFormData(prevData => ({
+          ...prevData!,
           name: value,
         }));
         break;
-  
+
       case 'category':
-        setFormData(pS => ({
-          ...pS!,
+        setFormData(prevData => ({
+          ...prevData!,
           category: value,
         }));
         break;
-  
+
       case 'content':
-        setFormData(pS => ({
-          ...pS!,
+        setFormData(prevData => ({
+          ...prevData!,
           content: value,
         }));
         break;
-  
-        case 'dates':
-  setFormData(pS => ({
-    ...pS!,
-    // dates: [...pS?.dates, value]
-    dates: [value]
-  }));
-  break;
-  
+
+      case 'arrayOfDate':
+        setCurrTime(value)
+        break;
+
       default:
         break;
     }
   }
-console.log(formData?.dates, 'qqqqqqqqqqqqqqqqqqqqqqqqqqq')
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if(formData !== null){
 
-dispatch(editNote(formData))
-handleToggle()
-}
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
+    if (formData !== null) {
+      const updatedNote: Note = {
+        ...formData, arrayOfDate: currTime
+      };
+      dispatch(editNote(updatedNote));
+      handleToggle();
+    }
   }
-  if(!formData) return
+
+  if (!formData) return null;
   
     return (
         <>
@@ -91,10 +83,10 @@ handleToggle()
         <TextArea id="content" value={formData.content} onChange={handleChange}></TextArea>
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="dates">Date:</Label>
-        <Input type="date" id="dates" value={formData.dates.length > 0 ? formData.dates[formData.dates.length - 1] : ''} onChange={handleChange}/>
+        <Label htmlFor="arrayOfDate">Date:</Label>
+        <Input type="date" id="arrayOfDate" value={currTime} onChange={handleChange}/>
       </FormGroup>
-      <Button type="submit">Submit</Button>
+      <Button type="submit">Edit</Button>
     </FormWrapper>
         </>
     )
